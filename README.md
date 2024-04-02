@@ -1,6 +1,8 @@
 # Introduction
 This repo is for my Java class at school.
-
+# Book
+Java教學手冊第六版
+![Java book](image.png)
 # Content Structure
 - [Java](Java/)
     - [Ch4](Java/Ch4)
