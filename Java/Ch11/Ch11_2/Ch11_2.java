@@ -28,6 +28,6 @@ public class Ch11_2 {
     public static void main(String args[]) {
         Compute cp = new Compute();
         cp.mul(3,5); // 計算3*5
-        cp.show();	// 此行會回應 "ans=15" 字串
+        cp.show();	// 此行會回應 "ans=15" 字串D
     }
 }
