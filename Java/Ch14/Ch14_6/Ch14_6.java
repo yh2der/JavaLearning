@@ -2,7 +2,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Ch14_6 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         char hi[] = {'H','e','l','l','o',' ','J','a','v','a','!','\r','\n'};
         String fileName = "hello.txt";
 

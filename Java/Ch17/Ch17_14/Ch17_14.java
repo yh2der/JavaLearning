@@ -1,9 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Ch17_14 {
-    static JFrame frm = new JFrame("Frame 14");
+public class Ch17_14 extends JFrame implements ActionListener {
+    static Ch17_14 frm = new Ch17_14();
     static JRadioButton btn1 = new JRadioButton("絕對值");
     static JRadioButton btn2 = new JRadioButton("平方值");
     static JRadioButton btn3 = new JRadioButton("立方值");
@@ -12,6 +13,13 @@ public class Ch17_14 {
     static JLabel resultLabel = new JLabel("");
 
     public static void main(String[] args) {
+        frm.setTitle("Frame 14");
+        frm.setSize(300, 150);
+        frm.setVisible(true);
+        frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frm.setLayout(new BorderLayout());
+
+        // 一次只勾選一個 所以加進group
         ButtonGroup group = new ButtonGroup();
         group.add(btn1);
         group.add(btn2);
@@ -30,23 +38,15 @@ public class Ch17_14 {
         JPanel resultPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         resultPanel.add(resultLabel);
 
-        calculateButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                calculate();
-            }
-        });
-
-        frm.setLayout(new BorderLayout());
         frm.add(panel, BorderLayout.NORTH);
         frm.add(inputPanel, BorderLayout.CENTER);
         frm.add(resultPanel, BorderLayout.SOUTH);
 
-        frm.setSize(300, 150);
-        frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frm.setVisible(true);
+        calculateButton.addActionListener(frm);
     }
 
-    private static void calculate() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
         String inputText = textField.getText();
         if (!inputText.isEmpty()) {
             try {
@@ -70,5 +70,5 @@ public class Ch17_14 {
         } else {
             resultLabel.setText("Please enter a number.");
         }
-    }
+    }        
 }

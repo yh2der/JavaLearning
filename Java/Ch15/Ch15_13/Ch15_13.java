@@ -1,5 +1,5 @@
 // Ex15_13
-class CData extends Thread{
+class CData extends Thread {
     private static int sum=30;
     private int n;
     private int sec;

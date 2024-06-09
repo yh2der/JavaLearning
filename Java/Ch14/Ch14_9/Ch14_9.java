@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Ch14_9 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String file1 = "aaa.txt";
         String file2 = "bbb.txt";
         String file3 = "ccc.txt";

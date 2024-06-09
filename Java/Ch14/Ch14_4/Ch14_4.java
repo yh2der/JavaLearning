@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 public class Ch14_4 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String fileName = "donkey.txt";
         int charCount = 0;
 

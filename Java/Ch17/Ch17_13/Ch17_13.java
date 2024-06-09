@@ -4,39 +4,35 @@ import java.awt.*;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 
-public class Ch17_13 {
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("ScrollBar Example");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        JPanel panel = new JPanel(new BorderLayout()); // Use BorderLayout
-        JLabel label = new JLabel("Scrollbars at (0, 0)");
-        panel.add(label, BorderLayout.NORTH); // Add label to the NORTH
-        
-        // 水平捲軸// 垂直捲軸
-        JScrollBar horizontalScrollBar = new JScrollBar(JScrollBar.HORIZONTAL, 0, 10, 0, 100);
-        JScrollBar verticalScrollBar = new JScrollBar(JScrollBar.VERTICAL, 0, 10, 0, 100);
-        horizontalScrollBar.addAdjustmentListener(new AdjustmentListener() {
-            public void adjustmentValueChanged(AdjustmentEvent e) {
-                updateLabelText(label, horizontalScrollBar, verticalScrollBar);
-            }
-        });
-        panel.add(horizontalScrollBar, BorderLayout.SOUTH); // Add horizontalScrollBar to the SOUTH
-        
-        
-        
-        verticalScrollBar.addAdjustmentListener(new AdjustmentListener() {
-            public void adjustmentValueChanged(AdjustmentEvent e) {
-                updateLabelText(label, horizontalScrollBar, verticalScrollBar);
-            }
-        });
-        panel.add(verticalScrollBar, BorderLayout.EAST); // Add verticalScrollBar to the EAST
-        
-        frame.add(panel);
+public class Ch17_13 extends JFrame implements AdjustmentListener {
+    static Ch17_13 frame = new Ch17_13();
+    static JPanel panel = new JPanel(new BorderLayout()); // Use BorderLayout
+    static JLabel label = new JLabel("Scrollbars at (0, 0)");
+    static JScrollBar horizontalScrollBar = new JScrollBar(JScrollBar.HORIZONTAL, 0, 10, 0, 100);
+    static JScrollBar verticalScrollBar = new JScrollBar(JScrollBar.VERTICAL, 0, 10, 0, 100);
+
+    public static void main(String[] args) {       
+        frame.setTitle("ScrollBar Example");   
         frame.setSize(400, 200);
         frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    
+        
+        panel.add(label, BorderLayout.CENTER);
+        panel.add(horizontalScrollBar, BorderLayout.SOUTH);
+        panel.add(verticalScrollBar, BorderLayout.EAST);       
+
+        horizontalScrollBar.addAdjustmentListener(frame);
+        verticalScrollBar.addAdjustmentListener(frame);
+                
+        frame.add(panel); 
     }
     
+    public void adjustmentValueChanged(AdjustmentEvent e) {
+        String text = "Scrollbars at (" + horizontalScrollBar.getValue() +
+                      ", " + verticalScrollBar.getValue() + ")";
+        label.setText(text);
+    }
+
     private static void updateLabelText(JLabel label, JScrollBar horizontalScrollBar, JScrollBar verticalScrollBar) {
         String text = "Scrollbars at (" + horizontalScrollBar.getValue() +
                       ", " + verticalScrollBar.getValue() + ")";

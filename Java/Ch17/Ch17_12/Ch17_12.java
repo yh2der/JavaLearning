@@ -3,8 +3,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Ch17_12 {
-    static JFrame frm = new JFrame("Image Selector");
+public class Ch17_12 extends JFrame implements ActionListener {
+    static Ch17_12 frm = new Ch17_12();
     static JRadioButton rbtnKitty = new JRadioButton("kitty");
     static JRadioButton rbtnPuppy = new JRadioButton("puppy");
     static JRadioButton rbtnAgave = new JRadioButton("agave");
@@ -14,51 +14,41 @@ public class Ch17_12 {
     static JLabel lab = new JLabel();
 
     public static void main(String[] args) {
-        frm.setSize(400, 300);
-        frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frm.setLayout(new BorderLayout());
-
         ButtonGroup buttonGroup = new ButtonGroup();
+        JPanel radioPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel imagePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        
         buttonGroup.add(rbtnKitty);
         buttonGroup.add(rbtnPuppy);
         buttonGroup.add(rbtnAgave);
 
-        rbtnKitty.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                lab.setIcon(picKitty);
-            }
-        });
-
-        rbtnPuppy.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                lab.setIcon(picPuppy);
-            }
-        });
-
-        rbtnAgave.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                lab.setIcon(picAgave);
-            }
-        });
-
-        rbtnKitty.setSelected(true);
-
-        JPanel radioPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); // 使用流式布局，并居中
-
+        frm.setTitle("Image Selector");
+        frm.setSize(400, 300);
+        frm.setLayout(new BorderLayout());        
+        
         radioPanel.add(rbtnKitty);
         radioPanel.add(rbtnPuppy);
         radioPanel.add(rbtnAgave);
-
-        frm.add(radioPanel, BorderLayout.NORTH);
-
-        JPanel imagePanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); // 使用流式布局，并居中
         imagePanel.add(lab);
 
+        rbtnKitty.addActionListener(frm);
+        rbtnPuppy.addActionListener(frm);
+        rbtnAgave.addActionListener(frm);
+
+        frm.add(radioPanel, BorderLayout.NORTH);           
         frm.add(imagePanel, BorderLayout.CENTER);
 
+        frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frm.setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        JRadioButton rbtn = (JRadioButton) e.getSource();
+        if (rbtn == rbtnKitty)
+            lab.setIcon(picKitty);
+        else if (rbtn == rbtnPuppy)
+            lab.setIcon(picPuppy);
+        else if (rbtn == rbtnAgave)
+            lab.setIcon(picAgave);
     }
 }

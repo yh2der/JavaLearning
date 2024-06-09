@@ -1,85 +1,75 @@
 import java.io.*;
 import java.util.Arrays;
+import java.util.Random;
 
 public class Ch14_12 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         writeData();
-        readData();
+        findMinMaxAvg();
         sortData();
     }
 
-    public static void writeData() {
-        try {
-            FileOutputStream fos = new FileOutputStream("rand.txt");
-            PrintWriter writer = new PrintWriter(fos);
-            for (int i = 0; i < 1000; i++) {
-                int randomNumber = (int) (Math.random() * 99999) + 1;
-                writer.println(randomNumber);
-            }
-            writer.close();
-            System.out.println("rand.txt 文件已以創建並產生隨機數。");
-        } catch (IOException e) {
-            System.out.println("寫入文件時出錯：" + e.getMessage());
+    public static void writeData() throws IOException {
+        FileOutputStream fos = new FileOutputStream("rand.txt");
+        Random rand = new Random();
+        for (int i = 0; i < 1000; i++) {
+            int num = rand.nextInt(99999) + 1;
+            String numString = Integer.toString(num);
+            fos.write(numString.getBytes());
+            fos.write("\n".getBytes());
         }
+        fos.close();
     }
 
-    public static void readData() {
-        try {
-            FileInputStream fis = new FileInputStream("rand.txt");
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader reader = new BufferedReader(isr);
-
-            int sum = 0;
-            int min = Integer.MAX_VALUE;
-            int max = Integer.MIN_VALUE;
-            String line;
-            while ((line = reader.readLine()) != null) {
-                int number = Integer.parseInt(line);
-                sum += number;
-                if (number < min) {
-                    min = number;
-                }
-                if (number > max) {
-                    max = number;
-                }
-            }
-            reader.close();
-
-            double average = (double) sum / 1000;
-            System.out.println("平均值: " + average);
-            System.out.println("最小值: " + min);
-            System.out.println("最大值: " + max);
-        } catch (IOException e) {
-            System.out.println("讀取件時出錯：" + e.getMessage());
+    public static void findMinMaxAvg() throws IOException {
+        int[] numbers = new int[1000];
+        FileInputStream fis = new FileInputStream("rand2.txt");
+        InputStreamReader isr = new InputStreamReader(fis);
+        BufferedReader br = new BufferedReader(isr);
+        
+        String line;
+        int index = 0;
+        while ((line = br.readLine()) != null) {
+            numbers[index++] = Integer.parseInt(line);
         }
+        br.close();
+
+        int sum = 0;
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+        for (int num : numbers) {
+            sum += num;
+            if (num < min) {
+                min = num;
+            }
+            if (num > max) {
+                max = num;
+            }
+        }
+        double average = (double) sum / numbers.length;
+        System.out.println("Minimum value: " + min);
+        System.out.println("Maximum value: " + max);
+        System.out.println("Average value: " + average);
     }
 
-    public static void sortData() {
-        try {
-            FileInputStream fis = new FileInputStream("rand.txt");
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader reader = new BufferedReader(isr);
-
-            int[] numbers = new int[1000];
-            String line;
-            int index = 0;
-            while ((line = reader.readLine()) != null) {
-                int number = Integer.parseInt(line);
-                numbers[index++] = number;
+    public static void sortData() throws IOException {
+        int[] numbers = new int[1000];
+        FileInputStream fis = new FileInputStream("rand.txt");
+        InputStreamReader isr = new InputStreamReader(fis);
+        BufferedReader br = new BufferedReader(isr);
+        String line;
+        int index = 0;
+        while ((line = br.readLine()) != null) {
+            numbers[index++] = Integer.parseInt(line);
+        }
+        br.close();
+        Arrays.sort(numbers);
+        try (FileOutputStream fos = new FileOutputStream("rand2.txt")) {
+            for (int num : numbers) {
+                String numString = Integer.toString(num);
+                fos.write(numString.getBytes());
+                fos.write("\n".getBytes());
             }
-            reader.close();
-
-            Arrays.sort(numbers);
-
-            FileOutputStream fos = new FileOutputStream("rand2.txt");
-            PrintWriter writer = new PrintWriter(fos);
-            for (int i = 0; i < 1000; i++) {
-                writer.println(numbers[i]);
-            }
-            writer.close();
-            System.out.println("rand2.txt 文件已創建並排序。");
-        } catch (IOException e) {
-            System.out.println("寫入文件時出錯：" + e.getMessage());
         }
     }
 }

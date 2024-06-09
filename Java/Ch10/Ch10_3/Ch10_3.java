@@ -31,7 +31,7 @@ class Data extends Rectangle {
         super(len, wid);
     }
     void area() {
-        System.out.printf("長方形面積 = %d\nlength = %d\nwidth = %d",
+        System.out.printf("長方形面積 = %d\nlength = %d\nwidth = %d\n",
                             getLen()*getWid(), getLen(), getWid());
     }
 }
