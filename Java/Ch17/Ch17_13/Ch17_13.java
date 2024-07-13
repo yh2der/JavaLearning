@@ -8,7 +8,7 @@ public class Ch17_13 extends JFrame implements AdjustmentListener {
     static Ch17_13 frame = new Ch17_13();
     static JPanel panel = new JPanel(new BorderLayout()); // Use BorderLayout
     static JLabel label = new JLabel("Scrollbars at (0, 0)");
-    static JScrollBar horizontalScrollBar = new JScrollBar(JScrollBar.HORIZONTAL, 0, 10, 0, 100);
+    static JScrollBar horizontalScrollBar = new JScrollBar(JScrollBar.HORIZONTAL, 50, 10, 0, 110);
     static JScrollBar verticalScrollBar = new JScrollBar(JScrollBar.VERTICAL, 0, 10, 0, 100);
 
     public static void main(String[] args) {       
@@ -33,9 +33,9 @@ public class Ch17_13 extends JFrame implements AdjustmentListener {
         label.setText(text);
     }
 
-    private static void updateLabelText(JLabel label, JScrollBar horizontalScrollBar, JScrollBar verticalScrollBar) {
-        String text = "Scrollbars at (" + horizontalScrollBar.getValue() +
-                      ", " + verticalScrollBar.getValue() + ")";
-        label.setText(text);
-    }
+    // private static void updateLabelText(JLabel label, JScrollBar horizontalScrollBar, JScrollBar verticalScrollBar) {
+    //     String text = "Scrollbars at (" + horizontalScrollBar.getValue() +
+    //                   ", " + verticalScrollBar.getValue() + ")";
+    //     label.setText(text);
+    // }
 }
