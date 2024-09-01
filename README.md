@@ -1,7 +1,7 @@
 # Introduction
 This repo contains my practice of Java sessions at college.
 ## Book
-Java教學手冊第六版
+### Java教學手冊第六版
 ![Java book](image.png)
 ## Content Structure
 - [Java](Java/)
